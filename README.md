@@ -31,7 +31,7 @@ See IIC-OSIC docker setup [Documentration](https://docs.google.com/document/d/e/
 
     - Same for the `start_X11_GL.sh` or `...bat` for X11
 
-The running docker should appear in the container tab in Docker-Desktop. This script is similar to JKU IIC-OSIC-TOOLS scripts except addtion of an extra `8888` port for runnning Jupyter. You can check that in the container tab.
+The running docker should appear in the container tab in Docker-Desktop. This script is similar to JKU IIC-OSIC-TOOLS scripts except addtion of an extra `8888` port for runnning Jupyter. You can check that in the container tab. Remember, you can add `DESIGNS="your/path/to/directory" ./start_vnc_GL.sh` to map a user-defined directory to the Docker Container. For details see the JKU [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS/iss) repo.
 
 
 ### Seting up gLayout
