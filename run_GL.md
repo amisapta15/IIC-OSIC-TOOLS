@@ -1,14 +1,20 @@
+Open Docker-Desktop Dashboard. Go to the *Containers* tab and you should see the container running. 
 
-![](./_files/Docker-Desktop-1.png)
+- Click on container name `GL-iic-.. `
 
-![](./_files/Docker-Desktop-2.png)
+    ![](./_files/image1.png)
 
-In the Exec terminal (terminal of the Docker)
-- Run `chmod +x ./run_GL.sh`
-- Run `./run_Gl.sh`
+- navigate to `Exec` tab
 
-This will setup and install necessary components for the gLayout and will start a jupyter server to access it. Please note you would need to restart the jupyter server if you close or rebuild the docker container.
+    ![](./_files/image-2.png) 
+- In the Exec terminal (terminal of the Docker)
+    - Run `chmod +x ./run_GL.sh`
+    - Run `./run_Gl.sh`
 
-![](./_files/Docker-Desktop-3.png)
+  ![](./_files/image3.png)
 
-![](./_files/Docker-Desktop-4.png)
+- This will setup and install necessary components for the gLayout and will start a jupyter server to access it. 
+
+    ![](./_files/image-4.png)
+
+Please note you would need to restart the jupyter server if you close or rebuild the docker container.

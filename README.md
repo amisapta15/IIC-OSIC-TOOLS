@@ -36,7 +36,7 @@ The running docker should appear in the container tab in Docker-Desktop. This sc
 
 ### Seting up gLayout
 
-Once the Docker is up and running, go to the *container tab* in Docker Desktop, Click on the Docker Desktop name and navigate to `Exec` tab and excecute `./run_Gl.sh` in the terminal of the Docker. 
+Once the Docker is up and running, go to the *container tab* in Docker Desktop, click on the container name and navigate to `Exec` tab and excecute `./run_Gl.sh` in the terminal of the Docker. 
 
 See [`run_GL`](./run_GL.md) for pictorial details.
 
@@ -45,4 +45,4 @@ See [Chipathon Documentration](https://github.com/sscs-ose/sscs-chipathon-2025/t
 
 ### Support with Issues/Problems/Bugs
 
-We are open to your questions about this container. Please take a look at the issues in the JKU [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS/iss) repo or reach out in the Matrix/Element channel.
+Please take a look at the issues in the JKU [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS/iss) repo or reach out in the Matrix/Element channel.
