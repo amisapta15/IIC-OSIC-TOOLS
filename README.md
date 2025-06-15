@@ -41,6 +41,7 @@ Once the Docker is up and running, go to the *container tab* in Docker Desktop, 
 
 See [`run_GL`](./run_GL.md) for pictorial details.
 
+You can access the Jupyter Server from your browser `http://localhost:8888/lab`
 
 See [Chipathon Documentration](https://github.com/sscs-ose/sscs-chipathon-2025/tree/main/resources/Analog_Automation_gLayout) for more details of the setup.
 
