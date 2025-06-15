@@ -13,7 +13,7 @@ Open Docker-Desktop Dashboard. Go to the *Containers* tab and you should see the
 
   ![](./_files/image3.png)
 
-- This will setup and install necessary components for the gLayout and will start a jupyter server to access it. 
+- This will setup and install necessary components for the gLayout and will start a jupyter server to access it. You can access the Jupyter Server from your browser `http://localhost:8888/lab`
 
     ![](./_files/image-4.png)
 
