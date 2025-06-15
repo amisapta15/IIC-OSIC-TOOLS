@@ -40,53 +40,24 @@ IF "%DOCKER_TAG%"=="" SET DOCKER_TAG=latest
 IF "%CONTAINER_USER%"=="" SET CONTAINER_USER=1000
 IF "%CONTAINER_GROUP%"=="" SET CONTAINER_GROUP=1000
 
-IF "%CONTAINER_NAME%"=="" SET CONTAINER_NAME=iic-osic-tools_xvnc
+IF "%CONTAINER_NAME%"=="" SET CONTAINER_NAME=GL-iic-osic-tools_xserver
 
-IF "%WEBSERVER_PORT%"=="" (
-  SET /a WEBSERVER_PORT=80
+IF "%JUPYTER_PORT%"=="" (
+  SET /a JUPYTER_PORT=8888
 ) ELSE (
-  SET /a WEBSERVER_PORT=%WEBSERVER_PORT%
+  SET /a JUPYTER_PORT=%JUPYTER_PORT%
 )
-echo Webserver port set to %WEBSERVER_PORT%
+echo JUPYTER_PORT port set to %JUPYTER_PORT%
 
-IF "%VNC_PORT%"=="" (
-  SET /a VNC_PORT=5901
-) ELSE (
-  SET /a VNC_PORT=%VNC_PORT%
+
+IF "%DISP%"=="" SET DISP=:0
+IF "%WAYLAND_DISP%"=="" SET WAYLAND_DISP=wayland-0
+IF %JUPYTER_PORT% GTR 0 (
+  SET PARAMS=%PARAMS% -p %JUPYTER_PORT%:8888
 )
-echo VNC port set to %VNC_PORT%
-
 
 IF %CONTAINER_USER% NEQ 0 if %CONTAINER_USER% LSS 1000 echo WARNING: Selected User ID %CONTAINER_USER% is below 1000. This ID might interfere with User-IDs inside the container and cause undefined behaviour!
 IF %CONTAINER_GROUP% NEQ 0 if %CONTAINER_GROUP% LSS 1000 echo WARNING: Selected Group ID %CONTAINER_GROUP% is below 1000. This ID might interfere with Group-IDs inside the container and cause undefined behaviour!
-
-SET PARAMS=
-
-IF %WEBSERVER_PORT% GTR 0 (
-  SET PARAMS=%PARAMS% -p %WEBSERVER_PORT%:80
-)
-
-IF %VNC_PORT% GTR 0 (
-  SET PARAMS=%PARAMS% -p %VNC_PORT%:5901
-)
-
-IF DEFINED VNC_PW (
-  SET PARAMS=%PARAMS% -e VNC_PW=%VNC_PW%
-)
-
-IF DEFINED DOCKER_EXTRA_PARAMS (
-  SET PARAMS=%PARAMS% %DOCKER_EXTRA_PARAMS%
-)
-
-IF "%DISP%"=="" SET DISP=host.docker.internal:0
-
-where /q xhost
-IF ERRORLEVEL 1 (
-    ECHO xhost is not detected / not in PATH. Please verify X-server access control!
-) ELSE (
-    ECHO Using xhost to enable localhost access to the X-server.
-    %ECHO_IF_DRY_RUN% xhost +localhost
-)
 
 docker container inspect %CONTAINER_NAME% 2>&1 | find "Status" | find /i "running"
 IF NOT ERRORLEVEL 1 (
@@ -96,7 +67,8 @@ IF NOT ERRORLEVEL 1 (
     IF NOT ERRORLEVEL 1 (
         echo Container %CONTAINER_NAME% exists. Restart with \"docker start %CONTAINER_NAME%\" or remove with \"docker rm %CONTAINER_NAME%\" if required.
     ) ELSE (
-        echo Container does not exist, creating %CONTAINER_NAME% ...
-        %ECHO_IF_DRY_RUN% docker run -d --user %CONTAINER_USER%:%CONTAINER_GROUP% %PARAMS% -v "%DESIGNS%":/foss/designs --name %CONTAINER_NAME% %DOCKER_USER%/%DOCKER_IMAGE%:%DOCKER_TAG%
+	echo Container does not exist, pulling %DOCKER_USER%/%DOCKER_IMAGE%:%DOCKER_TAG% and creating %CONTAINER_NAME% ...
+        %ECHO_IF_DRY_RUN% docker pull %DOCKER_USER%/%DOCKER_IMAGE%:%DOCKER_TAG%
+        %ECHO_IF_DRY_RUN% docker run -d --user %CONTAINER_USER%:%CONTAINER_GROUP% -e DISPLAY=%DISP% -e WAYLAND_DISPLAY=%WAYLAND_DISP% -e XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir -e PULSE_SERVER=/mnt/wslg/PulseServer -v /run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix -v /run/desktop/mnt/host/wslg:/mnt/wslg --device=/dev/dxg -v /usr/lib/wsl:/usr/lib/wsl %DOCKER_EXTRA_PARAMS% -v "%DESIGNS%":/foss/designs --name %CONTAINER_NAME% %DOCKER_USER%/%DOCKER_IMAGE%:%DOCKER_TAG%
     )
 )

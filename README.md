@@ -1,40 +1,48 @@
-# IIC-OSIC-TOOLS
+# GL-IIC-OSIC-TOOLS
 
-This environment is a fork of JKU [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) based on the [efabless.com FOSS-ASIC-TOOLS](https://github.com/efabless/foss-asic-tools).
+This startup scripts are for glayout specific setup. This is a fork of JKU [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) based on the [efabless.com FOSS-ASIC-TOOLS](https://github.com/efabless/foss-asic-tools). This fork provides modified scripts to setup gLayout devlopment environment in the IIC-OSIC Docker Image.  
 
-**IIC-OSIC-TOOLS** (Integrated Infrastructure for Collaborative Open Source IC Tools) is an all-in-one Docker container for open-source-based integrated circuit designs for analog and digital circuit flows. The CPU architectures `x86_64/amd64` and `aarch64/arm64` are natively supported based on Ubuntu 24.04 LTS (since release `2025.01`). This collection of tools is curated by the [**Department for Integrated Circuits (DIC), Johannes Kepler University (JKU)**](https://iic.jku.at). 
-
-This fork provides modified scripts to setup gLayout devlopment environment in the Docker.  
-
-It supports two *modes of operation*:
+It also supports three *modes of operation*:
 
 1. Using a complete desktop environment (XFCE) in `Xvnc` (a VNC server), either directly accessing it with a VNC client of your choice or the integrated [noVNC](https://novnc.com) server that runs in your browser.
 2. Using a local X11 server and directly showing the application windows on your desktop.
-3. Using it as a development container in Visual Studio Code (or other IDEs)
+3. Using it as a development container in Visual Studio Code (or other IDEs). You can access [the Docker](https://code.visualstudio.com/docs/devcontainers/attach-container) though the Docker extension of VS-Code or access the Jupyter Server running in the Docker though [remote tunneling extension](https://code.visualstudio.com/docs/datascience/jupyter-notebooks#_connect-to-a-remote-jupyter-server). Details documentation can be found in [VSCode website](https://code.visualstudio.com/docs/) with videos and very detailed instructions.
 
 ### To use it: Clone/download this GitHub repository onto your computer
 
-Use the green **Code** button, and either download the zip file or do a
+Use the green **Code** button (top-left), and either download the zip file or do 
 
 ```bash
-git clone --depth=1 https://github.com/iic-jku/iic-osic-tools.git
+git clone --depth=1 https://github.com/ReaLLMASIC/IIC-OSIC-TOOLS.git
 ```
+
+### Using VNC or X11 to access the Docker Image:
+
+See IIC-OSIC docker setup [Documentration](https://docs.google.com/document/d/e/2PACX-1vT1jADYn6HAjlp1b3KB7T0nAkxzmT5GXo7NzFjxZ47M9s9H3oyHdoU39wxUscF8DtTNeQ3Egeo_1e1s/pub) for more detailed steps. 
+
+- Allow Security permissions 
+    - (Linux/WSL in Windows) Open a terminal and run `xhost +Local:*`  
+    - (mac) Open XQuartz and type in `xhost + 127.0.0.1`
+- Run scripts *start_[--]_GL.sh* (for Linux/Mac) or click on *start_[--].bat* (for Windows) to build the container.
+    - Open a terminal (or xterm) and execute `./start_vnc_GL.sh`  
+        (Note: you might have to do `chmod +x ./start_vnc_GL.sh`)
+
+    - Double-click to execute `start_vnc_GL.bat` and allow permissions.
+
+    - Same for the `start_X11_GL.sh` or `...bat` for X11
+
+The running docker should appear in the container tab in Docker-Desktop. This script is similar to JKU IIC-OSIC-TOOLS scripts except addtion of an extra `8888` port for runnning Jupyter. You can check that in the container tab.
+
 
 ### Seting up gLayout
 
-See [Chipathon Documentration](https://github.com/sscs-ose/sscs-chipathon-2025/tree/main/resources/Analog_Automation_gLayout) for details of setup.
+Once the Docker is up and running, go to the *container tab* in Docker Desktop, Click on the Docker Desktop name and navigate to `Exec` tab and excecute `./run_Gl.sh` in the terminal of the Docker. 
 
-- Run `start_vnc_GL.sh`
-- Run `run_Gl.sh`
+See [`run_GL`](./run_GL.md) for pictorial details.
 
-## Support with Issues/Problems/Bugs
 
-We are open to your questions about this container and are very thankful for your input! If you run into a problem, and you are sure it is a bug, please let us know by following this routine:
+See [Chipathon Documentration](https://github.com/sscs-ose/sscs-chipathon-2025/tree/main/resources/Analog_Automation_gLayout) for more details of the setup.
 
-- Take a look at the [KNOWN_ISSUES](KNOWN_ISSUES.md) and the [RELEASE_NOTES](RELEASE_NOTES.md). Both these files can include problems that we are already aware of and maybe include a workaround.
-- Check the existing [Issues](https://github.com/iic-jku/IIC-OSIC-TOOLS/issues) on GitHub and see if the problem has been reported already. If yes, please participate in the discussion and help by further collecting information.
-- Is the problem in connection with the container, or rather a problem with a specific tool? If it is the second, please also check out the sources of the tool and further contact the maintainer!
-- To help us fix the problem, please open an issue on GitHub and report the error. Please give us as much information as possible without being verbose, so filter accordingly. It is also fine to open an issue with very little information, we will help you to narrow down the source of the error.
-- Finally, if you can exactly know how to fix the reported error, we are also happy if you open a pull request with a fix!
+### Support with Issues/Problems/Bugs
 
- Thank you for your cooperation!
+We are open to your questions about this container. Please take a look at the issues in the JKU [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS/iss) repo or reach out in the Matrix/Element channel.
